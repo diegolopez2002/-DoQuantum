@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+import Button from './components/Button';
+import Login from './components/Login';
+
 const ReplaceableContent = ({ title, content, form, buttonLabel }) => {
   const [showForm, setShowForm] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -53,22 +56,7 @@ const ReplaceableContent = ({ title, content, form, buttonLabel }) => {
       displayedContent = (
         <div>
           <p>Success! Your submission has been received. To learn more...</p>
-          <button
-            onClick={() => window.open("https://calendly.com/evrenyk", "_blank")}
-            style={{
-              marginTop: '1rem',
-              backgroundColor: '#DC66FF',
-              color: '#ffffff',
-              fontSize: '1rem',
-              border: 'none',
-              padding: '0.8rem 1.5rem',
-              borderRadius: '8px',
-              cursor: 'pointer',
-              width: '90%',
-            }}
-          >
-            Schedule a Call
-          </button>
+          <Button label={"Schedule a Call"} onClick={() => window.open("https://calendly.com/evrenyk")} style={{width: '90%',}} />
         </div>
       );
     } 
@@ -81,38 +69,14 @@ const ReplaceableContent = ({ title, content, form, buttonLabel }) => {
     displayedContent = (
       <div>
         {clonedForm}
-        <button onClick={handleShowContent} style={{
-          marginTop: '1rem',
-          backgroundColor: '#DC66FF',
-          color: '#ffffff',
-          fontSize: '1rem',
-          border: 'none',
-          padding: '0.8rem 1.5rem',
-          borderRadius: '8px',
-          cursor: 'pointer',
-          width: '90%',
-        }}>
-          Back
-        </button>
+        <Button label="Back" onClick={handleShowContent} style={{width: '90%',}} />
       </div>
     );
   } else {
     displayedContent = (
       <div>
         {content}
-        <button onClick={handleShowForm} style={{
-          marginTop: '1rem',
-          display: 'inline-block',
-          padding: '1rem 2rem',
-          backgroundColor: '#DC66FF',
-          fontSize: '1.125rem',
-          borderRadius: '8px',
-          color: '#ffffff',
-          border: 'none',
-          cursor: 'pointer',
-        }}>
-          {buttonLabel}
-        </button>
+        <Button label={buttonLabel} onClick={handleShowForm} />
       </div>
     );
   }
@@ -136,10 +100,38 @@ const ReplaceableContent = ({ title, content, form, buttonLabel }) => {
 
 const App = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const mountRef = useRef(null);
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+  };
+
+  const handleLoginSuccess = () => {
+    setIsLoggedIn(true);
+    closeModal();
+    };
+
+  const handleModalClose = () => {
+    closeModal();
+    };
  
+    const closeModal = () => {
+      setShowLoginModal(false);
+  
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    };
+
   useEffect(() => {
     const currentMount = mountRef.current;
+    if (!currentMount) return;
   
     // Scene setup
     const scene = new THREE.Scene();
@@ -270,17 +262,7 @@ const App = () => {
         borderRadius: '5px',
         border: '1px solid #ccc',
       }}/></label>
-      <button type="submit" style={{
-        marginTop: '1rem',
-        backgroundColor: '#DC66FF',
-        color: '#ffffff',
-        fontSize: '1rem',
-        border: 'none',
-        padding: '0.8rem 1.5rem',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        width: '90%',
-      }}>Submit</button>
+      <Button label="Submit" style={{width: '90%'}}  type="Submit" />
     </form>
   );
 
@@ -368,29 +350,22 @@ const App = () => {
           height: '100px', // Set height for the textarea
         }} />
       </label>
-      <button type="submit" style={{
-        marginTop: '1rem',
-        backgroundColor: '#DC66FF',
-        color: '#ffffff',
-        fontSize: '1rem',
-        border: 'none',
-        padding: '0.8rem 1.5rem',
-        borderRadius: '8px',
-        cursor: 'pointer',
-        width: '90%',
-      }}>Submit</button>
+      <Button label="Submit" type="Submit" style={{width: '90%'}}/>
     </form>
   );
-  
 
   return (
-    <div style={{
+    
+    <div
+    style={{
       position: 'relative',
       width: '100vw',
       minHeight: '100vh',
       backgroundColor: '#100F1C',
-    }}>
-      <header style={{
+    }}
+  >
+    <header
+      style={{
         position: 'fixed',
         top: 0,
         left: 0,
@@ -400,337 +375,403 @@ const App = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        padding: '0 2rem',
         zIndex: 99, // Ensure it's above other elements
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for separation
-      }}>
-        <a href="doquantum.org" style={{
+        
+      }}
+    >
+      <a
+        href="doquantum.org"
+        style={{
           display: 'flex',
           alignItems: 'center',
           textDecoration: 'none',
-        }}>
-          <img 
-            src="/FullLogo_Transparent_NoBuffer.png" 
-            alt="Do Quantum Logo" 
-            style={{
-              height: '3.5rem', // Adjust logo size
-              cursor: 'pointer',
-            }} 
-          />
-        </a>
-      </header>
-      <div ref={mountRef} style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        zIndex: 1,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }} />
-      <div style={{
-        position: 'relative',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        zIndex: 2,
-        fontFamily: '"Inter", system-ui, sans-serif',
-        color: '#ffffff',
-        padding: '0 20px',
-        boxSizing: 'border-box',
-        textAlign: 'center',
-      }}>
-        <div style={{
+          marginLeft: '1rem',
+        }}
+      >
+        <img
+          src="/FullLogo_Transparent_NoBuffer.png"
+          alt="Do Quantum Logo"
+          style={{
+            height: '3.5rem', // Adjust logo size
+            cursor: 'pointer',
+          }}
+        />
+      </a>
+      <div
+        style={{
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'start',
-          gap: '1rem', 
-        }}>
-          <p style={{
-            fontSize: '1.5rem',
-            maxWidth: '800px',
-            margin: '15rem auto 13rem auto',
-            lineHeight: '1.6',
-            //color: '#a5b4fc',
-            color: '#DC66FF',
-          }}>
-            A UMD researcher-run non-profit bridging the gap between quantum computing theory and practice. 
-            We empower students to become quantum researchers and help companies 
-            harness the power of quantum computing.
-          </p>
-          <h1 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: '#ffffff',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1rem',
-            marginBottom: '0.5rem',
-          }}>
-            Our Spring 2024 Initiatives
-          </h1>
-          <div style={{
-            display: 'flex',
-            gap: '1rem',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            maxWidth: '1200px',
-            margin: '0 auto',
-          }}>
-            <div style={{
-              background: 'rgba(99, 102, 241, 0.1)',
-              padding: '2rem',
-              borderRadius: '1rem',
-              flex: '1',
-              minWidth: '300px',
-              maxWidth: '500px',
-              backdropFilter: 'blur(10px)', // For most browsers
-              WebkitBackdropFilter: 'blur(10px)', // For Safari on iOS
-              border: '1px solid rgba(99, 102, 241, 0.2)',
-            }}>
-              <h2 style={{
-                fontSize: '1.8rem',
-                marginBottom: '1rem',
-                color: '#ffffff',
-              }}>Research Platform</h2>
-              <div style={{
-                color: '#a5b4fc',
-                marginBottom: '1.5rem',
-              }}>
-                <div style={{
-                  color: '#a5b4fc',
-                  marginBottom: '1.5rem',
-                }}></div>  
-                <p style={{
-                  fontSize: '1.1rem',
-                  lineHeight: '1.5',
-                }}>
-                  Our platform will serve:
-                </p>
-                
-                  <ReplaceableContent
-                    title="UMD Students"
-                    content={
-                    <p>
-                      Start with just Python knowledge. We'll help you build expertise in Quantum ML, NLP, and cryptography through interactive games, do research, get an advisor, and publish your work.
-                    </p>
-                    }
-                    form={formSimple}
-                    buttonLabel="Join Waitlist"
-                    showSuccessMessage={showSuccessMessage}
-                  />
-
-                  <ReplaceableContent
-                    title="UMD Professors"
-                    content={
-                      <p>
-                        Share your expertise as a research advisor and publish faster. Choose your projects, set your availability, and guide the next generation of quantum researchers for as little as 1hr/week.
-                      </p>
-                    }
-                    form={formSimple}
-                    buttonLabel="Apply to Advise"
-                    showSuccessMessage={showSuccessMessage}
-                  />
-                  </div>
-
-                </div>
-                <div style={{
-                  background: 'rgba(99, 102, 241, 0.1)',
-                  padding: '2rem',
-                  borderRadius: '1rem',
-                  flex: '1',
-                  minWidth: '300px',
-                  maxWidth: '500px',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(99, 102, 241, 0.2)',
-                }}>
-                  <h2 style={{
-                    fontSize: '1.8rem',
-                    marginBottom: '1rem',
-                    color: '#ffffff',
-                  }}>One Corporate Project</h2>
-                  <p style={{
-                    fontSize: '1.1rem',
-                    color: '#a5b4fc',
-                    lineHeight: '1.5',
-                  }}>
-                    We plan to serve:
-                  </p>
-                  <div style={{
-                    color: '#a5b4fc',
-                    marginBottom: '1.5rem',
-                  }}>
-
-                  <ReplaceableContent
-                    title="UMD Students"
-                    content={
-                      <p>
-                        Collaborate on a cutting-edge quantum computing project, guided by an experienced team lead, alongside fellow students and company advisors.
-                      </p>
-                    }
-                    form={formSimple}
-                    buttonLabel="Join Waitlist"
-                    showSuccessMessage={showSuccessMessage}
-                  />
-
-                  <ReplaceableContent
-                    title="Corporations"
-                    content={
-                      <p>
-                        Work with an experienced team lead and dedicated student team on a quantum computing project. Only one company will be selected.
-                      </p>
-                    }
-                    form={formComplex}
-                    buttonLabel="Contact Us"
-                    showSuccessMessage={showSuccessMessage}
-                  />
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        {isLoggedIn ? (
+          <Button
+            label="Logout"
+            onClick={() => setIsLoggedIn(false)}
+            style={{
+              marginRight: '1rem',
+              padding: '0.5rem 1rem',
+              fontSize: '1rem', // Adjust for smaller screens
+            }}
+          />
+        ) : (
+          <Button
+            label="Login"
+            onClick={handleLoginClick}
+            style={{
+              marginRight: '1rem',
+              padding: '0.5rem 1rem',
+              fontSize: '1rem', // Adjust for smaller screens
+            }}
+          />
+        )}
+      </div>
+    </header>
+            
+            {showLoginModal && (
+              <div
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  zIndex: 100,
+                }}
+              >
+                <div
+                  style={{
+                    borderRadius: '1rem',
+                    textAlign: 'center',
+                  }}
+                >
+                  <Login onLogin={handleLoginSuccess} onClose={handleModalClose}/>
                 </div>
               </div>
-            </div>
-              <h1 style={{
-                fontSize: '2.5rem',
-                fontWeight: 'bold',
-                color: '#ffffff',
-                textTransform: 'uppercase',
-                letterSpacing: '0.1rem',
-                marginBottom: '0.5rem',
-              }}>
-                Meet Our Team
-              </h1>
-              <div style={{
+            )}
+
+            {!showLoginModal && (
+
+              <div ref={mountRef} style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: 1,
                 display: 'flex',
-                flexWrap: 'wrap',
                 justifyContent: 'center',
-                margin: '0 auto',
-                gap: '2rem',
-                padding: '2rem',
-                backgroundColor: '#100F1C',
+                alignItems: 'center',
+              }} />
+            )}
+              <div style={{
+                position: 'relative',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                zIndex: 2,
+                fontFamily: '"Inter", system-ui, sans-serif',
+                color: '#ffffff',
+                padding: '0 20px',
+                boxSizing: 'border-box',
+                textAlign: 'center',
               }}>
-                {/* Team Member 1 */}
                 <div style={{
-                  maxWidth: '300px',
-                  textAlign: 'center',
-                  backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                  borderRadius: '1rem',
-                  padding: '1.5rem',
-                  border: '1px solid rgba(99, 102, 241, 0.2)',
-                  color: '#ffffff',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'start',
+                  gap: '1rem', 
                 }}>
-                  <img
-                    src="/evren-pic.png"
-                    alt="Team Member 1"
-                    style={{
-                      width: '200px',
-                      height: '200px',
-                      borderRadius: '50%',
-                      marginBottom: '1rem',
-                      border: '3px solid #DC66FF',
-                    }}
-                  />
-                  <h3 style={{
+                  <p style={{
                     fontSize: '1.5rem',
-                    marginBottom: '0.5rem',
-                    color: '#ffffff',
-                  }}>
-                    Evren Yücekuş~Kissane
-                  </h3>
-                  <p style={{
-                    fontSize: '1rem',
-                    color: '#a5b4fc',
-                    marginBottom: '1rem',
-                  }}>
-                    Founder & CEO
-                  </p>
-                  <p style={{
-                    fontSize: '0.9rem',
-                    color: '#ffffff',
+                    maxWidth: '800px',
+                    margin: '15rem auto 13rem auto',
                     lineHeight: '1.6',
+                    //color: '#a5b4fc',
+                    color: '#DC66FF',
                   }}>
-                    Evren has conducted and presented his own quantum NLP research, has 3+ years of experience developing software with ML and NLP, and has 2+ years of experience in R&D.
+                    A UMD researcher-run non-profit bridging the gap between quantum computing theory and practice. 
+                    We empower students to become quantum researchers and help companies 
+                    harness the power of quantum computing.
                   </p>
-                </div>
+                  <h1 style={{
+                    fontSize: '2.5rem',
+                    fontWeight: 'bold',
+                    color: '#ffffff',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.1rem',
+                    marginBottom: '0.5rem',
+                  }}>
+                    Our Spring 2024 Initiatives
+                  </h1>
+                  <div style={{
+                    display: 'flex',
+                    gap: '1rem',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    maxWidth: '1200px',
+                    margin: '0 auto',
+                  }}>
+                    <div style={{
+                      background: 'rgba(99, 102, 241, 0.1)',
+                      padding: '2rem',
+                      borderRadius: '1rem',
+                      flex: '1',
+                      minWidth: '300px',
+                      maxWidth: '500px',
+                      backdropFilter: 'blur(10px)', // For most browsers
+                      WebkitBackdropFilter: 'blur(10px)', // For Safari on iOS
+                      border: '1px solid rgba(99, 102, 241, 0.2)',
+                    }}>
+                      <h2 style={{
+                        fontSize: '1.8rem',
+                        marginBottom: '1rem',
+                        color: '#ffffff',
+                      }}>Research Platform</h2>
+                      <div style={{
+                        color: '#a5b4fc',
+                        marginBottom: '1.5rem',
+                      }}>
+                        <div style={{
+                          color: '#a5b4fc',
+                          marginBottom: '1.5rem',
+                        }}></div>  
+                        <p style={{
+                          fontSize: '1.1rem',
+                          lineHeight: '1.5',
+                        }}>
+                          Our platform will serve:
+                        </p>
+                        
+                          <ReplaceableContent
+                            title="UMD Students"
+                            content={
+                            <p>
+                              Start with just Python knowledge. We'll help you build expertise in Quantum ML, NLP, and cryptography through interactive games, do research, get an advisor, and publish your work.
+                            </p>
+                            }
+                            form={formSimple}
+                            buttonLabel="Join Waitlist"
+                            showSuccessMessage={showSuccessMessage}
+                          />
 
-                {/* Team Member 2 */}
-                <div style={{
-                  maxWidth: '300px',
-                  textAlign: 'center',
-                  backgroundColor: 'rgba(99, 102, 241, 0.1)',
-                  borderRadius: '1rem',
-                  padding: '1.5rem',
-                  border: '1px solid rgba(99, 102, 241, 0.2)',
-                  color: '#ffffff',
-                }}>
-                  <img
-                    src="/diego-pic.png"
-                    alt="Team Member 2"
-                    style={{
-                      width: '200px',
-                      height: '200px',
-                      borderRadius: '50%',
-                      marginBottom: '1rem',
-                      border: '3px solid #DC66FF',
-                    }}
-                  />
-                  <h3 style={{
-                    fontSize: '1.5rem',
-                    marginBottom: '0.5rem',
+                          <ReplaceableContent
+                            title="UMD Professors"
+                            content={
+                              <p>
+                                Share your expertise as a research advisor and publish faster. Choose your projects, set your availability, and guide the next generation of quantum researchers for as little as 1hr/week.
+                              </p>
+                            }
+                            form={formSimple}
+                            buttonLabel="Apply to Advise"
+                            showSuccessMessage={showSuccessMessage}
+                          />
+                          </div>
+
+                        </div>
+                        <div style={{
+                          background: 'rgba(99, 102, 241, 0.1)',
+                          padding: '2rem',
+                          borderRadius: '1rem',
+                          flex: '1',
+                          minWidth: '300px',
+                          maxWidth: '500px',
+                          backdropFilter: 'blur(10px)',
+                          WebkitBackdropFilter: 'blur(10px)',
+                          border: '1px solid rgba(99, 102, 241, 0.2)',
+                        }}>
+                          <h2 style={{
+                            fontSize: '1.8rem',
+                            marginBottom: '1rem',
+                            color: '#ffffff',
+                          }}>One Corporate Project</h2>
+                          <p style={{
+                            fontSize: '1.1rem',
+                            color: '#a5b4fc',
+                            lineHeight: '1.5',
+                          }}>
+                            We plan to serve:
+                          </p>
+                          <div style={{
+                            color: '#a5b4fc',
+                            marginBottom: '1.5rem',
+                          }}>
+
+                          <ReplaceableContent
+                            title="UMD Students"
+                            content={
+                              <p>
+                                Collaborate on a cutting-edge quantum computing project, guided by an experienced team lead, alongside fellow students and company advisors.
+                              </p>
+                            }
+                            form={formSimple}
+                            buttonLabel="Join Waitlist"
+                            showSuccessMessage={showSuccessMessage}
+                          />
+
+                          <ReplaceableContent
+                            title="Corporations"
+                            content={
+                              <p>
+                                Work with an experienced team lead and dedicated student team on a quantum computing project. Only one company will be selected.
+                              </p>
+                            }
+                            form={formComplex}
+                            buttonLabel="Contact Us"
+                            showSuccessMessage={showSuccessMessage}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                      <h1 style={{
+                        fontSize: '2.5rem',
+                        fontWeight: 'bold',
+                        color: '#ffffff',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.1rem',
+                        marginBottom: '0.5rem',
+                      }}>
+                        Meet Our Team
+                      </h1>
+                      <div style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        justifyContent: 'center',
+                        margin: '0 auto',
+                        gap: '2rem',
+                        padding: '2rem',
+                        backgroundColor: '#100F1C',
+                      }}>
+                        {/* Team Member 1 */}
+                        <div style={{
+                          maxWidth: '300px',
+                          textAlign: 'center',
+                          backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                          borderRadius: '1rem',
+                          padding: '1.5rem',
+                          border: '1px solid rgba(99, 102, 241, 0.2)',
+                          color: '#ffffff',
+                        }}>
+                          <img
+                            src="/evren-pic.png"
+                            alt="Team Member 1"
+                            style={{
+                              width: '200px',
+                              height: '200px',
+                              borderRadius: '50%',
+                              marginBottom: '1rem',
+                              border: '3px solid #DC66FF',
+                            }}
+                          />
+                          <h3 style={{
+                            fontSize: '1.5rem',
+                            marginBottom: '0.5rem',
+                            color: '#ffffff',
+                          }}>
+                            Evren Yücekuş~Kissane
+                          </h3>
+                          <p style={{
+                            fontSize: '1rem',
+                            color: '#a5b4fc',
+                            marginBottom: '1rem',
+                          }}>
+                            Founder & CEO
+                          </p>
+                          <p style={{
+                            fontSize: '0.9rem',
+                            color: '#ffffff',
+                            lineHeight: '1.6',
+                          }}>
+                            Evren has conducted and presented his own quantum NLP research, has 3+ years of experience developing software with ML and NLP, and has 2+ years of experience in R&D.
+                          </p>
+                        </div>
+
+                        {/* Team Member 2 */}
+                        <div style={{
+                          maxWidth: '300px',
+                          textAlign: 'center',
+                          backgroundColor: 'rgba(99, 102, 241, 0.1)',
+                          borderRadius: '1rem',
+                          padding: '1.5rem',
+                          border: '1px solid rgba(99, 102, 241, 0.2)',
+                          color: '#ffffff',
+                        }}>
+                          <img
+                            src="/diego-pic.png"
+                            alt="Team Member 2"
+                            style={{
+                              width: '200px',
+                              height: '200px',
+                              borderRadius: '50%',
+                              marginBottom: '1rem',
+                              border: '3px solid #DC66FF',
+                            }}
+                          />
+                          <h3 style={{
+                            fontSize: '1.5rem',
+                            marginBottom: '0.5rem',
+                            color: '#ffffff',
+                          }}>
+                            Diego Lopez
+                          </h3>
+                          <p style={{
+                            fontSize: '1rem',
+                            color: '#a5b4fc',
+                            marginBottom: '1rem',
+                          }}>
+                            Backend Developer
+                          </p>
+                          <p style={{
+                            fontSize: '0.9rem',
+                            color: '#ffffff',
+                            lineHeight: '1.6',
+                          }}>
+                            Diego has leveraged his knowledge in data science and machine learning to develop a wide range of applications and web projects, from small-scale to complex systems, for the past 3+ years.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <footer style={{
+                    position: 'relative',
+                    bottom: 0,
+                    zIndex: 99,
+                    width: '100%',
+                    padding: '1rem 0 1rem 0',
+                    backgroundColor: 'rgba(16, 15, 28, 1)', // Solid background
                     color: '#ffffff',
+                    textAlign: 'center',
+                    borderTop: '1px solid rgba(255, 255, 255, 0.1)', // Optional border
+                    fontFamily: '"Inter", system-ui, sans-serif',
                   }}>
-                    Diego Lopez
-                  </h3>
-                  <p style={{
-                    fontSize: '1rem',
-                    color: '#a5b4fc',
-                    marginBottom: '1rem',
-                  }}>
-                    Backend Developer
-                  </p>
-                  <p style={{
-                    fontSize: '0.9rem',
-                    color: '#ffffff',
-                    lineHeight: '1.6',
-                  }}>
-                    Diego has leveraged his knowledge in data science and machine learning to develop a wide range of applications and web projects, from small-scale to complex systems, for the past 3+ years.
-                  </p>
+                    <p>
+                      Call or Text us: 
+                      <a href="tel:+19083071999" style={{
+                        color: '#DC66FF',
+                        textDecoration: 'none',
+                        marginLeft: '0.5rem',
+                      }}>+1 (908) 307-1999</a>
+                    </p>
+                    <p>
+                      Email us: <a href="mailto:doquantumresearch@gmail.com" style={{
+                        color: '#DC66FF',
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                      }}>doquantumresearch@gmail.com</a>
+                    </p>
+                  </footer>
                 </div>
-              </div>
-            </div>
-          </div>
-          <footer style={{
-            position: 'relative',
-            bottom: 0,
-            zIndex: 99,
-            width: '100%',
-            padding: '1rem 0 1rem 0',
-            backgroundColor: 'rgba(16, 15, 28, 1)', // Solid background
-            color: '#ffffff',
-            textAlign: 'center',
-            borderTop: '1px solid rgba(255, 255, 255, 0.1)', // Optional border
-            fontFamily: '"Inter", system-ui, sans-serif',
-          }}>
-            <p>
-              Call or Text us: 
-              <a href="tel:+19083071999" style={{
-                color: '#DC66FF',
-                textDecoration: 'none',
-                marginLeft: '0.5rem',
-              }}>+1 (908) 307-1999</a>
-            </p>
-            <p>
-              Email us: <a href="mailto:doquantumresearch@gmail.com" style={{
-                color: '#DC66FF',
-                textDecoration: 'none',
-                cursor: 'pointer',
-              }}>doquantumresearch@gmail.com</a>
-            </p>
-          </footer>
-        </div>
+          
+
   );
 };
 

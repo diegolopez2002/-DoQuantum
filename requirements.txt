@@ -2,6 +2,7 @@ https://nodejs.org/en (add to system environment vailable PATH)
 npm install three (into git bash after restarting vscode)
 npm install web-vitals
 npm install react-helmet (for SEO)
+npm install express express-session axios (for backend CAS authentication)
 
 To start:
 1. open git bash
