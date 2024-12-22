@@ -431,7 +431,8 @@ const App = () => {
             
             {showLoginModal && (
               <div
-                style={{
+              onClick={handleModalClose}  
+              style={{
                   position: 'fixed',
                   top: 0,
                   left: 0,
@@ -445,6 +446,7 @@ const App = () => {
                 }}
               >
                 <div
+                  onClick={(e) => e.stopPropagation()}
                   style={{
                     borderRadius: '1rem',
                     textAlign: 'center',

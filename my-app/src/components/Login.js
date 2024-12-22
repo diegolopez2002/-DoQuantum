@@ -43,7 +43,7 @@ const Login = ({ onLogin, onClose }) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'flex-start',
-              width: '100%',
+              width: '90%',
               margin: '0 auto',
               textAlign: 'left', 
               }}>Directory ID</label>
@@ -54,7 +54,7 @@ const Login = ({ onLogin, onClose }) => {
               required
               style={{
                 fontSize: '1rem',
-                width: 'calc(100% - 1rem - 2px)',
+                width: 'calc(90% - 1rem - 2px)',
                 alignItems: 'center',
                 padding: '0.5rem',
                 marginTop: '0.5rem',
@@ -69,7 +69,7 @@ const Login = ({ onLogin, onClose }) => {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'flex-start',
-              width: '100%',
+              width: '90%',
               margin: '0 auto',
               textAlign: 'left', 
             }}>Passphrase</label>
@@ -80,7 +80,7 @@ const Login = ({ onLogin, onClose }) => {
               required
               style={{
                 fontSize: '1rem',
-                width: 'calc(100% - 1rem - 2px)',
+                width: 'calc(90% - 1rem - 2px)',
                 alignItems: 'center',
                 padding: '0.5rem',
                 marginTop: '0.5rem',
