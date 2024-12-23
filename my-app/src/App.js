@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import Button from './components/Button';
 import Login from './components/Login';
 import ReplaceableContent from './components/ReplaceableContent';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const App = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -17,24 +19,24 @@ const App = () => {
     document.body.style.position = 'fixed';
     document.body.style.top = `-${scrollY}px`;
   };
+  
+  const handleLogoutClick = () => {
+    setIsLoggedIn(false);
+  };
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
     closeModal();
     };
-
-  const handleModalClose = () => {
-    closeModal();
-    };
  
-    const closeModal = () => {
-      setShowLoginModal(false);
+  const closeModal = () => {
+    setShowLoginModal(false);
   
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      window.scrollTo(0, parseInt(scrollY || '0') * -1);
-    };
+    const scrollY = document.body.style.top;
+    document.body.style.position = '';
+    document.body.style.top = '';
+    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  };
 
   useEffect(() => {
     const currentMount = mountRef.current;
@@ -262,7 +264,6 @@ const App = () => {
   );
 
   return (
-    
     <div
     style={{
       position: 'relative',
@@ -271,73 +272,15 @@ const App = () => {
       backgroundColor: '#100F1C',
     }}
   >
-    <header
-      style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '5rem',
-        backgroundColor: 'rgba(16, 15, 28, 0.9)', // Semi-transparent background
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        zIndex: 99, // Ensure it's above other elements
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for separation
-      }}
-    >
-      <a
-        href="doquantum.org"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          textDecoration: 'none',
-          marginLeft: '1rem',
-        }}
-      >
-        <img
-          src="/FullLogo_Transparent_NoBuffer.png"
-          alt="Do Quantum Logo"
-          style={{
-            height: '3.5rem', // Adjust logo size
-            cursor: 'pointer',
-          }}
-        />
-      </a>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        {isLoggedIn ? (
-          <Button
-            label="Logout"
-            onClick={() => setIsLoggedIn(false)}
-            style={{
-              marginRight: '1rem',
-              padding: '0.5rem 1rem',
-              fontSize: '1rem', // Adjust for smaller screens
-            }}
-          />
-        ) : (
-          <Button
-            label="Login"
-            onClick={handleLoginClick}
-            style={{
-              marginRight: '1rem',
-              padding: '0.5rem 1rem',
-              fontSize: '1rem', // Adjust for smaller screens
-            }}
-          />
-        )}
-      </div>
-    </header>
+    <Header
+      isLoggedIn={isLoggedIn}
+      onLoginClick={handleLoginClick}
+      onLogoutClick={handleLogoutClick}
+    />
             
     {showLoginModal && (
       <div
-      onClick={handleModalClose}  
+      onClick={closeModal}  
       style={{
           position: 'fixed',
           top: 0,
@@ -358,7 +301,7 @@ const App = () => {
             textAlign: 'center',
           }}
         >
-          <Login onLogin={handleLoginSuccess} onClose={handleModalClose}/>
+          <Login onLogin={handleLoginSuccess} onClose={closeModal}/>
         </div>
       </div>
     )}
@@ -649,34 +592,7 @@ const App = () => {
           </div>
         </div>
       </div>
-      <footer style={{
-        position: 'relative',
-        bottom: 0,
-        zIndex: 99,
-        width: '100%',
-        padding: '1rem 0 1rem 0',
-        backgroundColor: 'rgba(16, 15, 28, 1)', // Solid background
-        color: '#ffffff',
-        textAlign: 'center',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)', // Optional border
-        fontFamily: '"Inter", system-ui, sans-serif',
-      }}>
-        <p>
-          Call or Text us: 
-          <a href="tel:+19083071999" style={{
-            color: '#DC66FF',
-            textDecoration: 'none',
-            marginLeft: '0.5rem',
-          }}>+1 (908) 307-1999</a>
-        </p>
-        <p>
-          Email us: <a href="mailto:doquantumresearch@gmail.com" style={{
-            color: '#DC66FF',
-            textDecoration: 'none',
-            cursor: 'pointer',
-          }}>doquantumresearch@gmail.com</a>
-        </p>
-      </footer>
+      <Footer />  
     </div>
   );
 };
