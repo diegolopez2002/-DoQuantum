@@ -3,8 +3,20 @@ npm install three (into git bash after restarting vscode)
 npm install web-vitals
 npm install react-helmet (for SEO)
 npm install express express-session axios (for backend CAS authentication)
+npm install react-router-dom (routing)
+npm install express bcrypt jsonwebtoken mongoose (for normal authentication)
+brew install postgresql (homev)
+npm install pg (for postgresql)
+
 
 To start:
 1. open git bash
 2. make sure you are in the "my-app" folder 
 3. type "npm start" and press enter
+
+To connect to the database:
+1. open git bash
+2. type "psql -U myuser -d mydatabase" and press enter
+3. type "\dt" to see the tables
+
+Add postgresql /bin folder to system environment PATH:
