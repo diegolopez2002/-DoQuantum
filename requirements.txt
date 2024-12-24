@@ -7,6 +7,7 @@ npm install react-router-dom (routing)
 npm install express bcrypt jsonwebtoken mongoose (for normal authentication)
 brew install postgresql (homev)
 npm install pg (for postgresql)
+npm install express cors body-parser pg bcrypt jsonwebtoken dotenv (for postgresql in /backend)
 
 
 To start:
