@@ -20,4 +20,9 @@ To connect to the database:
 2. type "psql -U myuser -d mydatabase" and press enter
 3. type "\dt" to see the tables
 
+To run the server:
+1. open git bash
+2. make sure you are in the "backend" folder
+3. type "node server.js" and press enter
+
 Add postgresql /bin folder to system environment PATH:
