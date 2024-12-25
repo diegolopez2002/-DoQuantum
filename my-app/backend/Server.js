@@ -23,10 +23,79 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
-const userController = require('./controllers/userControllers');
+/**
+ *  @route  POST /register
+ *  @desc   Register a new user
+ */
+app.post('/register', async (req, res) => {
+  const { username, email, password } = req.body;
 
-app.post('/register', userController.register);
-app.post('/login', userController.login);
+  try {
+    // Check if username exists
+    const usernameCheck = await pool.query('SELECT * FROM Users WHERE LOWER(username) = LOWER($1)', [username]);
+    if (usernameCheck.rows.length > 0) {
+      return res.status(400).json({ field: 'username', message: 'Username is already taken' });
+    }
+
+    // Check if email exists
+    const emailCheck = await pool.query('SELECT * FROM Users WHERE LOWER(email) = LOWER($1)', [email]);
+    if (emailCheck.rows.length > 0) {
+      return res.status(400).json({ field: 'email', message: 'Email is already taken' });
+    }
+
+    // Hash the password and insert the new user
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await pool.query(
+      'INSERT INTO Users (username, email, hashed_password) VALUES ($1, $2, $3)',
+      [username, email, hashedPassword]
+    );
+
+    res.status(201).json({ message: 'Account created successfully' });
+  } catch (error) {
+    console.error('Error registering user:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+/**
+ *  @route  POST /login
+ *  @desc   Login user
+ */
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+  
+  console.log(req.body)
+  try {
+    // Check if user exists
+    const userCheck = await pool.query('SELECT * FROM Users WHERE LOWER(username) = LOWER($1)', [username]);
+    if (userCheck.rows.length === 0) {
+      return res.status(400).json({ message: 'Invalid username' });
+    }
+
+    const user = userCheck.rows[0];
+
+    // Compare passwords
+    const isMatch = await bcrypt.compare(password, user.hashed_password);
+    if (!isMatch) {
+      return res.status(400).json({ message: 'Invalid password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign(
+      { userId: user.user_id, email: user.email },
+      process.env.JWT_SECRET || 'supersecretkey',
+      { expiresIn: '2h' }
+    );
+
+    res.json({ 
+      message: 'Login successful',
+      token 
+    });
+  } catch (error) {
+    console.error('Error logging in:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
 // Start Server
 app.listen(port, () => {

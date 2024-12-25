@@ -124,7 +124,7 @@ const Login = ({ onLogin }) => {
         </div>
 
         <Button label="Login" type="submit" style={{ width: '100%' }} />
-        <Button label="Close" onClick={handleClose} style={{ width: '100%' }} />
+        <Button label="Close" type="button" onClick={handleClose} style={{ width: '100%' }} />
 
         <p style={{ marginTop: '1rem', color: '#a5b4fc' }}>
           Don’t have an account?{' '}
