@@ -16,7 +16,8 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/Dashboard" element={<Dashboard />} />
-    </Routes>
+        <Route path="*" element={<h1 style={{color: '#ffffff', }}>404 Not Found</h1>} />
+      </Routes>
     </Router>
   );
 }

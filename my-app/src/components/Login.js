@@ -43,7 +43,7 @@ const Login = ({ onLogin }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'https://do-quantum-web-app.vercel.app/auth/google/callback';
+    window.location.href = 'https://do-quantum-web-app.vercel.app/auth/google/';
   };
 
   return (
