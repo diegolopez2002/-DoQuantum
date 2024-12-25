@@ -139,7 +139,11 @@ const Home = () => {
         margin: '0 auto',
         textAlign: 'left',
       }}>Name:
-      <input type="text" name="name" placeholder="e.g., Jane Doe" required style={{
+      <input type="text" 
+      name="name" 
+      placeholder="e.g., Jane Doe" 
+      required 
+      style={{
         fontSize: '1rem',
         width: 'calc(100% - 1rem - 2px)',
         alignItems: 'center',
@@ -156,7 +160,20 @@ const Home = () => {
         margin: '0 auto',
         textAlign: 'left',
         width: '80%',
-      }}>Email:<input type="email" name="email" placeholder='e.g., joeblow@gmail.com' required style={{
+      }}>Email:<input 
+      type="email" 
+      name="email" 
+      placeholder='e.g., joeblow@gmail.com' 
+      required 
+      onKeyDown={(e) => {
+        // Prevent the user from pressing the spacebar
+        if (e.key === ' ') e.preventDefault();
+      }}
+      onChange={(e) => {
+        // Remove any spaces (in case of copy/paste)
+        e.target.value = e.target.value.replace(/\s+/g, '');
+      }}
+      style={{
         fontSize: '1rem',
         width: 'calc(100% - 1rem - 2px)',
         padding: '0.5rem',
@@ -186,7 +203,12 @@ const Home = () => {
         margin: '0 auto',
         textAlign: 'left',
       }}>*Name:
-        <input type="text" name="name" placeholder="e.g., Jane Doe" required style={{
+        <input 
+        type="text" 
+        name="name" 
+        placeholder="e.g., Jane Doe" 
+        required 
+        style={{
           fontSize: '1rem',
           width: 'calc(100% - 1rem - 2px)',
           alignItems: 'center',
@@ -205,7 +227,20 @@ const Home = () => {
         textAlign: 'left',
         width: '80%',
       }}>*Email:
-        <input type="email" name="email" placeholder='e.g., joeshmo@gmail.com' required style={{
+        <input 
+        type="email" 
+        name="email" 
+        placeholder='e.g., joeshmo@gmail.com' 
+        required 
+        onKeyDown={(e) => {
+          // Prevent the user from pressing the spacebar
+          if (e.key === ' ') e.preventDefault();
+        }}
+        onChange={(e) => {
+          // Remove any spaces (in case of copy/paste)
+          e.target.value = e.target.value.replace(/\s+/g, '');
+        }}
+        style={{
           fontSize: '1rem',
           width: 'calc(100% - 1rem - 2px)',
           padding: '0.5rem',
@@ -223,7 +258,12 @@ const Home = () => {
         textAlign: 'left',
         width: '80%',
       }}>*Company Name:
-        <input type="text" name="companyName" placeholder="e.g., Acme Corp" required style={{
+        <input 
+        type="text" 
+        name="companyName" 
+        placeholder="e.g., Acme Corp" 
+        required 
+        style={{
           fontSize: '1rem',
           width: 'calc(100% - 1rem - 2px)',
           padding: '0.5rem',

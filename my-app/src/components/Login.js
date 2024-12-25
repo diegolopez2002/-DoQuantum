@@ -90,8 +90,16 @@ const Login = ({ onLogin }) => {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
             required
+            onKeyDown={(e) => {
+              // Prevent the user from pressing the spacebar
+              if (e.key === ' ') e.preventDefault();
+            }}
+            onChange={(e) => {
+              // Remove any spaces (in case of copy/paste)
+              const noSpaces = e.target.value.replace(/\s+/g, '');
+              setUsername(noSpaces);
+            }}
             style={{
               fontSize: '1rem',
               width: 'calc(90% - 1rem - 2px)',
@@ -120,8 +128,16 @@ const Login = ({ onLogin }) => {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
             required
+            onKeyDown={(e) => {
+              // Prevent the user from pressing the spacebar
+              if (e.key === ' ') e.preventDefault();
+            }}
+            onChange={(e) => {
+              // Remove any spaces (in case of copy/paste)
+              const noSpaces = e.target.value.replace(/\s+/g, '');
+              setPassword(noSpaces);
+            }}
             style={{
               fontSize: '1rem',
               width: 'calc(90% - 1rem - 2px)',
