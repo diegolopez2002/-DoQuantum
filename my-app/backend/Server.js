@@ -10,6 +10,21 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const port = process.env.PORT || 5000; // Backend will run on localhost:5000
 
+const session = require('express-session');
+const passport = require('passport');
+require('./config/passport');
+
+app.use(
+  session({
+    secret: 'your-session-secret',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -96,6 +111,9 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
 
 // Start Server
 app.listen(port, () => {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ const Login = ({ onLogin }) => {
         if (data.token) {
           localStorage.setItem('authToken', data.token);
         }
-        navigate('/dashboard'); // Redirect to dashboard on successful login
+        navigate('/dashboard'); 
       } else {
         setError(data.message || 'Login failed');
       }
@@ -35,25 +35,31 @@ const Login = ({ onLogin }) => {
   };
 
   const handleClose = () => {
-    navigate('/'); // Navigate back to the home screen
+    navigate('/'); 
   };
 
   const handleRegister = () => {
-    navigate('/register'); // Navigate to the register page
+    navigate('/register'); 
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = 'http://localhost:5000/auth/google';
   };
 
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      borderRadius: '1rem',
-      justifyContent: 'center',
-      backgroundColor: '#100F1C',
-      color: '#ffffff',
-    }}>
-      <form 
-        onSubmit={handleSubmit} 
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        borderRadius: '1rem',
+        justifyContent: 'center',
+        backgroundColor: '#100F1C',
+        color: '#ffffff',
+      }}
+    >
+      <form
+        onSubmit={handleSubmit}
         style={{
           background: 'rgba(99, 102, 241, 0.1)',
           padding: '3rem',
@@ -64,19 +70,21 @@ const Login = ({ onLogin }) => {
         }}
       >
         <h2 style={{ color: '#ffffff' }}>Login with UMD Account</h2>
-        
+
         {error && <p style={{ color: '#ff6b6b' }}>{error}</p>}
 
         <div style={{ marginBottom: '1rem' }}>
-          <label style={{
-            color: '#ffffff',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            width: '90%',
-            margin: '0 auto',
-            textAlign: 'left', 
-          }}>
+          <label
+            style={{
+              color: '#ffffff',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              width: '90%',
+              margin: '0 auto',
+              textAlign: 'left',
+            }}
+          >
             Username
           </label>
           <input
@@ -96,15 +104,17 @@ const Login = ({ onLogin }) => {
         </div>
 
         <div style={{ marginBottom: '1.5rem' }}>
-          <label style={{ 
-            color: '#ffffff',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            width: '90%',
-            margin: '0 auto',
-            textAlign: 'left', 
-          }}>
+          <label
+            style={{
+              color: '#ffffff',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              width: '90%',
+              margin: '0 auto',
+              textAlign: 'left',
+            }}
+          >
             Passphrase
           </label>
           <input
@@ -125,11 +135,18 @@ const Login = ({ onLogin }) => {
 
         <Button label="Login" type="submit" style={{ width: '100%' }} />
         <Button label="Close" type="button" onClick={handleClose} style={{ width: '100%' }} />
+        
+        <Button
+          label="Login with Google"
+          type="button"
+          onClick={handleGoogleLogin}
+          style={{ width: '100%', marginTop: '1rem' }}
+        />
 
         <p style={{ marginTop: '1rem', color: '#a5b4fc' }}>
           Don’t have an account?{' '}
-          <span 
-            style={{ textDecoration: 'underline', cursor: 'pointer' }} 
+          <span
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}
             onClick={handleRegister}
           >
             Register here
