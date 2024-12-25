@@ -8,9 +8,13 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: 'https://do-quantum-web-app.vercel.app/auth/google/callback',
     },
-    (accessToken, refreshToken, profile, done) => {
-      // Handle user profile (store in DB or session)
-      return done(null, profile);
+    async (accessToken, refreshToken, profile, done) => {
+        try {
+          // Handle user data here (e.g., save to database)
+          return done(null, profile);
+        } catch (error) {
+          return done(error, null);
+        }
     }
   )
 );

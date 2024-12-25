@@ -26,7 +26,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: 'https://do-quantum-web-app.vercel.app',
+  credentials: true,
+}));
 app.use(bodyParser.json());
 
 // PostgreSQL pool
