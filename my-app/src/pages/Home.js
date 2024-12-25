@@ -11,16 +11,9 @@ import Footer from '../components/Footer';
 const Home = () => {
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showLoginModal] = useState(false);
   const mountRef = useRef(null);
   const navigate = useNavigate();
-
-  const handleLoginClick = () => {
-    setShowLoginModal(true);
-    const scrollY = window.scrollY;
-    document.body.style.position = 'fixed';
-    document.body.style.top = `-${scrollY}px`;
-  };
   
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
@@ -28,17 +21,14 @@ const Home = () => {
 
   const handleLoginSuccess = () => {
     setIsLoggedIn(true);
-    navigate("/dashboard");
-    closeModal();
-    };
+  };
+
+  const handleRegisterSuccess = () => {
+    setIsLoggedIn(true);
+  };
  
-  const closeModal = () => {
-    setShowLoginModal(false);
-  
-    const scrollY = document.body.style.top;
-    document.body.style.position = '';
-    document.body.style.top = '';
-    window.scrollTo(0, parseInt(scrollY || '0') * -1);
+  const close = () => {
+    navigate("/#");
   };
 
   useEffect(() => {
@@ -277,13 +267,14 @@ const Home = () => {
   >
     <Header
       isLoggedIn={isLoggedIn}
-      onLoginClick={handleLoginClick}
+      onLoginClick={() => navigate('/login')}
       onLogoutClick={handleLogoutClick}
+      onRegisterClick={() => navigate('/register')}
     />
             
     {showLoginModal && (
       <div
-      onClick={closeModal}  
+      onClick={close}  
       style={{
           position: 'fixed',
           top: 0,
@@ -304,7 +295,7 @@ const Home = () => {
             textAlign: 'center',
           }}
         >
-          <Login onLogin={handleLoginSuccess} onClose={closeModal}/>
+          <Login onLogin={handleLoginSuccess} onClose={close}/>
         </div>
       </div>
     )}

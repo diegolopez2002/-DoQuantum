@@ -1,7 +1,12 @@
 import React from 'react';
 import Button from './Button';
 
-const Header = ({ isLoggedIn, onLoginClick, onLogoutClick }) => {
+const Header = ({
+  isLoggedIn,
+  onLoginClick,
+  onLogoutClick,
+  onRegisterClick,
+}) => {
   return (
     <header
       style={{
@@ -16,53 +21,67 @@ const Header = ({ isLoggedIn, onLoginClick, onLogoutClick }) => {
         justifyContent: 'space-between',
         zIndex: 99, // Ensure it's above other elements
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for separation
+        padding: '0 1rem',
+        boxSizing: 'border-box',
       }}
     >
+      {/* Logo / Home Link */}
       <a
-        href="doquantum.org"
+        href="/"
         style={{
           display: 'flex',
           alignItems: 'center',
           textDecoration: 'none',
-          marginLeft: '1rem',
         }}
       >
         <img
           src="/FullLogo_Transparent_NoBuffer.png"
           alt="Do Quantum Logo"
           style={{
-            height: '3.5rem', // Adjust logo size
+            height: '3.5rem',
             cursor: 'pointer',
           }}
         />
       </a>
+
+      {/* Right-Side Buttons */}
       <div
         style={{
           display: 'flex',
-          justifyContent: 'center',
+          gap: '1rem',
           alignItems: 'center',
         }}
       >
         {isLoggedIn ? (
+          // If user is logged in
           <Button
             label="Logout"
             onClick={onLogoutClick}
             style={{
-              marginRight: '1rem',
               padding: '0.5rem 1rem',
-              fontSize: '1rem', // Adjust for smaller screens
+              fontSize: '1rem',
             }}
           />
         ) : (
-          <Button
-            label="Login"
-            onClick={onLoginClick}
-            style={{
-              marginRight: '1rem',
-              padding: '0.5rem 1rem',
-              fontSize: '1rem', // Adjust for smaller screens
-            }}
-          />
+          // If user is NOT logged in, show Login & Register
+          <>
+            <Button
+              label="Login"
+              onClick={onLoginClick}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '1rem',
+              }}
+            />
+            <Button
+              label="Register"
+              onClick={onRegisterClick}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '1rem',
+              }}
+            />
+          </>
         )}
       </div>
     </header>

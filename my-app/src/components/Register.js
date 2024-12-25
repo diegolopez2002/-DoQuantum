@@ -1,45 +1,43 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
-const Login = ({ onLogin }) => {
+const Register = ({ onRegister }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [error, setError] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setError('');
+    setError(''); // Clear previous error messages
 
     try {
-      const response = await fetch('http://localhost:5000/login', {
+      const response = await fetch('http://localhost:5000/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ username, password, email }),
       });
 
       const data = await response.json();
+
       if (response.ok) {
-        if (data.token) {
-          localStorage.setItem('authToken', data.token);
-        }
-        navigate('/dashboard'); // Redirect to dashboard on successful login
+        // If registration is successful
+        onRegister && onRegister(true); // Update login state
+        navigate('/dashboard'); // Redirect to dashboard
       } else {
-        setError(data.message || 'Login failed');
+        // Handle specific error messages
+        setError(data.message || 'Registration failed');
       }
     } catch (err) {
-      console.error('Login error:', err);
+      console.error('Registration error:', err);
       setError('Something went wrong. Please try again later.');
     }
   };
 
   const handleClose = () => {
     navigate('/'); // Navigate back to the home screen
-  };
-
-  const handleRegister = () => {
-    navigate('/register'); // Navigate to the register page
   };
 
   return (
@@ -63,9 +61,10 @@ const Login = ({ onLogin }) => {
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <h2 style={{ color: '#ffffff' }}>Login with UMD Account</h2>
+        <h2 style={{ color: '#ffffff' }}>Register New Account</h2>
         
-        {error && <p style={{ color: '#ff6b6b' }}>{error}</p>}
+        {/* Display error messages */}
+        {error && <p style={{ color: '#ff6b6b', marginBottom: '1rem' }}>{error}</p>}
 
         <div style={{ marginBottom: '1rem' }}>
           <label style={{
@@ -95,6 +94,34 @@ const Login = ({ onLogin }) => {
           />
         </div>
 
+        <div style={{ marginBottom: '1rem' }}>
+          <label style={{
+            color: '#ffffff',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            width: '90%',
+            margin: '0 auto',
+            textAlign: 'left', 
+          }}>
+            Email
+          </label>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{
+              fontSize: '1rem',
+              width: 'calc(90% - 1rem - 2px)',
+              padding: '0.5rem',
+              marginTop: '0.5rem',
+              borderRadius: '5px',
+              border: '1px solid #ccc',
+            }}
+          />
+        </div>
+
         <div style={{ marginBottom: '1.5rem' }}>
           <label style={{ 
             color: '#ffffff',
@@ -105,7 +132,7 @@ const Login = ({ onLogin }) => {
             margin: '0 auto',
             textAlign: 'left', 
           }}>
-            Passphrase
+            Password
           </label>
           <input
             type="password"
@@ -123,21 +150,11 @@ const Login = ({ onLogin }) => {
           />
         </div>
 
-        <Button label="Login" type="submit" style={{ width: '100%' }} />
+        <Button label="Register" type="submit" style={{ width: '100%' }} />
         <Button label="Close" onClick={handleClose} style={{ width: '100%' }} />
-
-        <p style={{ marginTop: '1rem', color: '#a5b4fc' }}>
-          Don’t have an account?{' '}
-          <span 
-            style={{ textDecoration: 'underline', cursor: 'pointer' }} 
-            onClick={handleRegister}
-          >
-            Register here
-          </span>
-        </p>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
