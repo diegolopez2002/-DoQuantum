@@ -56,6 +56,7 @@ const Login = ({ onLogin }) => {
         justifyContent: 'center',
         backgroundColor: '#100F1C',
         color: '#ffffff',
+        margin: '3rem auto',
       }}
     >
       <form
