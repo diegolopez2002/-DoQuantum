@@ -41,6 +41,9 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+const authRoutes = require('./routes/auth');
+app.use('/auth', authRoutes);
+
 /**
  *  @route  POST /register
  *  @desc   Register a new user
