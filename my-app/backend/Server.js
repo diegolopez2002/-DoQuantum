@@ -8,7 +8,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = process.env.PORT || 5000; // Backend will run on localhost:5000
+const port = process.env.PORT || 5000;
 
 const session = require('express-session');
 const passport = require('passport');
