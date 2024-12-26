@@ -70,7 +70,7 @@ const Login = ({ onLogin }) => {
           boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
         }}
       >
-        <h2 style={{ color: '#ffffff' }}>Login with UMD Account</h2>
+        <h2 style={{ color: '#ffffff' }}>Login to Account</h2>
 
         {error && <p style={{ color: '#ff6b6b' }}>{error}</p>}
 
