@@ -29,6 +29,13 @@ const Footer = () => {
                 cursor: 'pointer',
                 }}>doquantumresearch@gmail.com</a>
             </p>
+            <p>
+                Join our Discord: <a href="https://discord.gg/XgBdREfAQ7" style={{ 
+                color: '#DC66FF',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                }}>https://discord.gg/XgBdREfAQ7</a>
+            </p>
         </footer>
     );
 };
