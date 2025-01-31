@@ -6,6 +6,7 @@ const Header = ({
   onLoginClick,
   onLogoutClick,
   onRegisterClick,
+  onDashboardClick,
 }) => {
   return (
     <header
@@ -81,9 +82,37 @@ const Header = ({
                 fontSize: '1rem',
               }}
             />
+            <Button
+              label="Dashboard"
+              onClick={onDashboardClick}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '1rem',
+              }}
+            />
+            {/* Image as a Button */}
+            <button
+              onClick={() => (window.location.href = '/dashboard')}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+              }}
+            >
+              <img
+                src="icons8-contact-info-48.png"
+                alt="Dashboard Icon"
+                backgroundColor="#DC66FF"
+                style={{
+                  height: '2rem', // Adjust size as needed
+                  width: '2rem',
+                }}
+              />
+            </button>
           </>
         )}
       </div>
+
     </header>
   );
 };

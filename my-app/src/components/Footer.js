@@ -30,11 +30,18 @@ const Footer = () => {
                 }}>doquantumresearch@gmail.com</a>
             </p>
             <p>
-                Join our Discord: <a href="https://discord.gg/XgBdREfAQ7" style={{ 
+                Join our Discord: <a href="https://discord.gg/XgBdREfAQ7" style={{ // Discord invite link
+                color: '#DC66FF',
+                textDecoration: 'none',
+                cursor: 'pointer', 
+                }}>https://discord.gg/XgBdREfAQ7</a> 
+            </p> 
+            <p>
+                Follow us on Instgaram: <a href="https://www.instagram.com/doquantum?igsh=MW02M2w2NXhrbHJ6MQ==&utm_source=ig_contact_invite" style={{ // Instagram link
                 color: '#DC66FF',
                 textDecoration: 'none',
                 cursor: 'pointer',
-                }}>https://discord.gg/XgBdREfAQ7</a>
+                }}>@doquantum</a>
             </p>
         </footer>
     );

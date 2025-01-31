@@ -14,6 +14,8 @@ const Home = () => {
   const [showLoginModal] = useState(false);
   const mountRef = useRef(null);
   const navigate = useNavigate();
+
+  
   
   const handleLogoutClick = () => {
     setIsLoggedIn(false);
@@ -310,6 +312,7 @@ const Home = () => {
       onLoginClick={() => navigate('/login')}
       onLogoutClick={handleLogoutClick}
       onRegisterClick={() => navigate('/register')}
+      onDashboardClick={() => navigate('/Dashboard')}
     />
             
     {showLoginModal && (
