@@ -1,5 +1,6 @@
 import React from "react";
 
+// Footer Compnent if you include in a return in compnenets it will appear at the bottom of the page same goes form Button, Header, and SimpleForm
 const Footer = () => {
     return (
         <footer style={{
@@ -42,6 +43,14 @@ const Footer = () => {
                 textDecoration: 'none',
                 cursor: 'pointer',
                 }}>@doquantum</a>
+            </p>
+            
+            <p>
+                Also Check out our LinkedIn: <a href="https://www.linkedin.com" style={{  //placeholder LinkedIn link WILL UPDATE
+                    color: '#DC66FF',
+                    textDecoration: 'none',
+                    cursor: 'pointer',
+                }} > LinkedIn </a>
             </p>
         </footer>
     );

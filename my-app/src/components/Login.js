@@ -161,7 +161,7 @@ const Login = ({ onLogin }) => {
         />
 
         <p style={{ marginTop: '1rem', color: '#a5b4fc' }}>
-          Don’t have an account?{' '}
+          Don't have an account?{' '}
           <span
             style={{ textDecoration: 'underline', cursor: 'pointer' }}
             onClick={handleRegister}

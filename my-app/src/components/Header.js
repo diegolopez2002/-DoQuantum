@@ -92,7 +92,7 @@ const Header = ({
             />
             {/* Image as a Button */}
             <button
-              onClick={() => (window.location.href = '/dashboard')}
+              onClick={() => (window.location.href = '/account')}
               style={{
                 background: 'none',
                 border: 'none',
@@ -101,7 +101,7 @@ const Header = ({
             >
               <img
                 src="icons8-contact-info-48.png"
-                alt="Dashboard Icon"
+                alt="Account Icon"
                 backgroundColor="#DC66FF"
                 style={{
                   height: '2rem', // Adjust size as needed

@@ -7,6 +7,7 @@ import Login from './components/Login';
 import Register from './components/Register';
 import Account from './pages/Account';
 
+//All Routes to various Pages
 const App = () => {
   return (
     <Router>
@@ -17,7 +18,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
 
         <Route path="/Dashboard" element={<Dashboard />} />
-        <Route path="/Account" element={<Account />} />
+        <Route path="/account" element={<Account />} />
         <Route path="*" element={<h1 style={{color: '#ffffff', }}>404 Not Found</h1>} />
       </Routes>
     </Router>
