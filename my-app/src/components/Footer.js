@@ -46,7 +46,7 @@ const Footer = () => {
             </p>
             
             <p>
-                Also Check out our LinkedIn: <a href="https://www.linkedin.com" style={{  //placeholder LinkedIn link WILL UPDATE
+                Also Check out our LinkedIn: <a href="https://www.linkedin.com/company/do-quantum" style={{  //placeholder LinkedIn link WILL UPDATE
                     color: '#DC66FF',
                     textDecoration: 'none',
                     cursor: 'pointer',
