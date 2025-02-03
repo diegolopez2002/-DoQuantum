@@ -10,6 +10,7 @@ const Account = () => {
     // State to track uploaded resume
     const [resumeUploaded, setResumeUploaded] = useState(false);
     const [resumeName, setResumeName] = useState(""); // Store the uploaded file name
+    const [resumeURL, setResumeURL] = useState(null); // Store file URL
 
     const handleLogoutClick = () => {
         if (window.confirm('Are you sure you want to logout?')) {
@@ -22,9 +23,11 @@ const Account = () => {
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (file) {
+            const fileURL = URL.createObjectURL(file); // Create a temporary URL for the file
             console.log('File uploaded:', file);
-            setResumeUploaded(true); // Show the "Change Resume" button
-            setResumeName(file.name); // Display the uploaded file name
+            setResumeUploaded(true);
+            setResumeName(file.name);
+            setResumeURL(fileURL);
         }
     };
 
@@ -65,26 +68,22 @@ const Account = () => {
                         {resumeUploaded ? 'Update your resume (PDF):' : 'Upload your resume (PDF):'}
                     </label>
 
-                    {/* File Input (Always Visible) */}
-                    <input
-                        type="file"
-                        id="resumeUpload"
-                        accept="application/pdf"
-                        onChange={handleFileUpload}
-                        style={{ marginBottom: '1rem', color: '#ffffff' }}
-                    />
-
-                    {/* Show the uploaded file name */}
-                    {resumeUploaded && (
-                        <p style={{ color: '#DC66FF', fontSize: '1rem', marginTop: '0.5rem' }}>
-                            Uploaded: {resumeName}
-                        </p>
-                    )}
-
-                    {/* Show Change Resume Button After Upload */}
-                    {resumeUploaded && (
+                    {/* Custom File Upload Button */}
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                        <input
+                            type="file"
+                            id="resumeUpload"
+                            accept="application/pdf"
+                            onChange={handleFileUpload}
+                            style={{
+                                position: 'absolute',
+                                opacity: 0,
+                                width: '100%',
+                                height: '100%',
+                                cursor: 'pointer',
+                            }}
+                        />
                         <button
-                            onClick={() => setResumeUploaded(false)}
                             style={{
                                 backgroundColor: '#DC66FF',
                                 color: 'white',
@@ -92,18 +91,40 @@ const Account = () => {
                                 padding: '0.5rem 1rem',
                                 cursor: 'pointer',
                                 borderRadius: '5px',
-                                fontSize: '1rem',
-                                marginTop: '0.5rem'
+                                fontSize: '0.75rem',
+                                width: '180px',
                             }}
                         >
-                            Change Resume
+                            {resumeUploaded ? "Change Resume" : "Choose File"}
+                        </button>
+                    </div>
+
+                    {/* Show uploaded file name */}
+                    {resumeUploaded && (
+                        <p style={{ color: '#DC66FF', fontSize: '1rem', marginTop: '0.5rem' }}>
+                            Uploaded: {resumeName}
+                        </p>
+                    )}
+
+                    {/* View Resume Button */}
+                    {resumeUploaded && resumeURL && (
+                        <button
+                            onClick={() => window.open(resumeURL, '_blank')}
+                            style={{
+                                backgroundColor: '#28A745', // Green color for visibility
+                                color: 'white',
+                                border: 'none',
+                                padding: '0.5rem 1rem',
+                                cursor: 'pointer',
+                                borderRadius: '5px',
+                                fontSize: '1rem',
+                                width: '200px',
+                                marginTop: '0.5rem',
+                            }}
+                        >
+                            View Resume
                         </button>
                     )}
-                    <div>
-                        <span>
-
-                        </span>
-                    </div>
                 </div>
 
                 {/* Footer */}
