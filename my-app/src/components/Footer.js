@@ -1,6 +1,6 @@
 import React from "react";
 
-// Footer Compnent if you include in a return in compnenets it will appear at the bottom of the page same goes form Button, Header, and SimpleForm
+// Footer Compnent if you include in a return in components it will appear at the bottom of the page same goes form Button, Header, and SimpleForm
 const Footer = () => {
     return (
         <footer style={{

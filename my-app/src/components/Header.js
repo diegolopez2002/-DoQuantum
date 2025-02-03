@@ -55,14 +55,38 @@ const Header = ({
       >
         {isLoggedIn ? (
           // If user is logged in
-          <Button
-            label="Logout"
-            onClick={onLogoutClick}
-            style={{
-              padding: '0.5rem 1rem',
-              fontSize: '1rem',
-            }}
-          />
+          <>
+            <Button
+              label="Logout"
+              onClick={onLogoutClick}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '1rem',
+              }}
+            />
+
+             { /* Account Button */}
+             {/* <button
+                onClick={() => (window.location.href = '/account')}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                <img
+                  src="icons8-contact-info-48.png"
+                  alt="Account Icon"
+                  backgroundColor="#DC66FF"
+                  style={{
+                    height: '2rem', // Adjust size as needed
+                    width: '2rem',
+                  }}
+                />
+              </button>  */}
+          </>
+
+
         ) : (
           // If user is NOT logged in, show Login & Register
           <>
@@ -92,23 +116,30 @@ const Header = ({
             />
             {/* Image as a Button */}
             <button
-              onClick={() => (window.location.href = '/account')}
-              style={{
-                background: 'none',
-                border: 'none',
-                cursor: 'pointer',
-              }}
-            >
-              <img
-                src="icons8-contact-info-48.png"
-                alt="Account Icon"
-                backgroundColor="#DC66FF"
+                onClick={() => (window.location.href = '/account')}
                 style={{
-                  height: '2rem', // Adjust size as needed
-                  width: '2rem',
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
                 }}
-              />
-            </button>
+              >
+                <img
+                  src="icons8-admin-settings-male-50.png"
+                  alt="Account Icon"
+                  backgroundColor="#DC66FF"
+                  color='white'
+                  style={{
+                    height: '2rem', // Adjust size as needed
+                    width: '2rem',
+                    backgroundColor: '#DC66FF',
+                    borderRadius: '50%',
+                    padding: '0.5rem 0.5rem',
+                    fontSize: '1rem',
+
+                  }}
+                />
+              </button>
+
           </>
         )}
       </div>
