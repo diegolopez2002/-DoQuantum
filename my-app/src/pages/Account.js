@@ -32,7 +32,12 @@ const Account = () => {
     };
 
     return (
-        <div style={{ position: 'relative', width: '100vw', minHeight: '100vh', backgroundColor: '#100F1C' }}>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            minHeight: '100vh', // Ensures the page takes at least full viewport height
+            backgroundColor: '#100F1C',
+        }}>
             <Header
                 isLoggedIn={isLoggedIn}
                 onLoginClick={() => navigate('/login')}
@@ -42,11 +47,13 @@ const Account = () => {
             />
 
             <div style={{
+                flexGrow: 1,  // Allows content to expand and take available space
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                minHeight: '100vh',
+                paddingTop: '0.1rem',  // Reduced top padding to bring content closer to header
+                paddingBottom: '2rem',  // Keep footer space
                 fontFamily: '"Inter", system-ui, sans-serif',
                 color: '#ffffff',
                 textAlign: 'center',
@@ -54,16 +61,18 @@ const Account = () => {
                 {/* Dashboard Title */}
                 <h1 style={{
                     fontSize: '2.5rem',
+                    paddingTop: '1rem',
                     fontWeight: 'bold',
                     color: '#DC66FF',
                     textShadow: '2px 2px 6px rgba(220, 102, 255, 0.5)',
                     marginBottom: '1rem',
+                    marginTop: '0',
                 }}>
                     Account
                 </h1>
 
                 {/* Resume Upload Section */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '2rem' }}>
                     <label htmlFor="resumeUpload" style={{ fontSize: '1rem', color: '#ffffff', marginBottom: '0.5rem' }}>
                         {resumeUploaded ? 'Update your resume (PDF):' : 'Upload your resume (PDF):'}
                     </label>
@@ -126,8 +135,6 @@ const Account = () => {
                         </button>
                     )}
                 </div>
-
-                {/* Footer */}
                 <Footer />
             </div>
         </div>
