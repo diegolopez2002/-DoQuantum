@@ -14,6 +14,7 @@ const Footer = () => {
             textAlign: 'center',
             borderTop: '1px solid rgba(255, 255, 255, 0.1)', // Optional border
             fontFamily: '"Inter", system-ui, sans-serif',
+            paddingBottom: '1rem',
             }}>
             <p>
                 Call or Text us: 

@@ -48,6 +48,7 @@ const Dashboard = () => {
                 minHeight: '100vh',  // Ensure full viewport height or more
                 color: '#ffffff',      // White text color
                 fontFamily: '"Inter", system-ui, sans-serif', // Use the Inter font
+
             }}>
                 {/* Dashboard title */}
                 <h1>Dashboard</h1>
@@ -63,11 +64,32 @@ const Dashboard = () => {
                     {/* <p>User ID: {userId}</p>
                     <p>Some other data: {someData}</p> */}
                     <p>Dashboard content goes here.</p> {/* Placeholder text */}
+
+                    <button 
+                         onClick={() => alert('Not implemented yet')} 
+                        style={{
+                          padding: '10px 20px',
+                          fontSize: '16px',
+                          backgroundColor: '#DC66FF',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '5px',
+                          cursor: 'pointer',
+                          marginTop: '10px'
+                        }}
+                    >
+                        Plagiarism Checker
+                     </button>
+
                 </div>
 
 
                 {/* Footer component */}
-                <div>
+                <div style={{
+                    position: 'absolute',   //Absolute positioning to make footer stay in place
+                    bottom: '0',           //Position it at the bottom
+                    width: '100%',         //Footer covers full width of the screen
+                }}>
                     <Footer />
                 </div>
             </div>
