@@ -121,6 +121,7 @@ const Header = ({
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  paddingTop: '0.5rem',
                 }}
               >
                 <img
