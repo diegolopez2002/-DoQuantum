@@ -67,7 +67,11 @@ const Dashboard = () => {
 
 
                 {/* Footer component */}
-                <div>
+                <div style={{
+                    position: 'absolute',   //Absolute positioning to make footer stay in place
+                    bottom: '0',           //Position it at the bottom
+                    width: '100%',         //Footer covers full width of the screen
+                }}>
                     <Footer />
                 </div>
             </div>
