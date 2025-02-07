@@ -32,6 +32,9 @@ const Account = () => {
     };
 
     return (
+
+        <div style={{ overflowY: "scroll" }}>
+
         <div style={{
             display: 'flex',
             flexDirection: 'column',
@@ -57,19 +60,26 @@ const Account = () => {
                 fontFamily: '"Inter", system-ui, sans-serif',
                 color: '#ffffff',
                 textAlign: 'center',
+                position: 'relative', // Relative positioning to make footer stay at the bottom
             }}>
+
+            <section style={{ marginTop: '-4rem',
+             }}>
                 {/* Dashboard Title */}
                 <h1 style={{
                     fontSize: '2.5rem',
-                    paddingTop: '1rem',
                     fontWeight: 'bold',
                     color: '#DC66FF',
                     textShadow: '2px 2px 6px rgba(220, 102, 255, 0.5)',
                     marginBottom: '1rem',
                     marginTop: '0',
+                    display: 'flex',
+
                 }}>
                     Account
                 </h1>
+            </section>
+        
 
                 {/* Resume Upload Section */}
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '2rem' }}>
@@ -135,6 +145,36 @@ const Account = () => {
                         </button>
                     )}
                 </div>
+
+                <section>
+                    <h2 style={{
+                        fontSize: '1.5rem',
+                        fontWeight: 'bold',
+                        color: '#DC66FF',
+                        textShadow: '2px 2px 6px rgba(220, 102, 255, 0.5)',
+                        marginBottom: '1rem',
+                        marginTop: '0',
+                        display: 'flex',
+                    }}> User Information : </h2>
+                    <h3> Username: </h3>
+                    <h3> Email: </h3>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <h3 style={{ marginRight: '1rem' }}> Password: </h3>
+                        <button style={{ 
+                            backgroundColor: '#DC66FF',
+                            color: 'white',
+                            border: 'none',
+                            padding: '0.5rem 1rem',
+                            cursor: 'pointer',
+                            borderRadius: '5px',
+                            fontSize: '0.75rem',
+                            width: '180px',
+                            position: 'relative',
+                        }}
+                        onClick={() => window.location.href = '/dashboard'} // chnange route to change password make a compnent like login for that
+                        > Change Password </button>
+                    </div>
+                </section>
                 
                 {/* Footer component */}
                 <div style={{
@@ -145,6 +185,7 @@ const Account = () => {
                     <Footer />
                 </div>
                 
+            </div>
             </div>
         </div>
     );

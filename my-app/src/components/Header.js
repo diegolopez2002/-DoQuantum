@@ -24,6 +24,7 @@ const Header = ({
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for separation
         padding: '0 1rem',
         boxSizing: 'border-box',
+        paddingBlockEnd : '0.5rem',
       }}
     >
       {/* Logo / Home Link */}
