@@ -4,7 +4,7 @@ import React from "react";
 const Footer = () => {
     return (
         <footer style={{
-            position: 'fixed',
+            position: 'relative',
             bottom: 0,
             zIndex: 99,
             width: '100%',
