@@ -72,15 +72,10 @@ const Account = () => {
                     color: '#DC66FF',
                     textShadow: '2px 2px 6px rgba(220, 102, 255, 0.5)',
                     marginBottom: '1rem',
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
                     marginTop: '0',
                     display: 'flex',
 
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
                 }}>
                     Account
                 </h1>
