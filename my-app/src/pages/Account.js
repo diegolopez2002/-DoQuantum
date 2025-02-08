@@ -147,7 +147,7 @@ const Account = () => {
                     )}
                 </div>
 
-                <section>
+                <section style = {{ display: 'flex', flexDirection: 'column', alignItems: 'center', paddingBottom: '2rem' }}>
                     <h2 style={{
                         fontSize: '1.5rem',
                         fontWeight: 'bold',
@@ -170,9 +170,9 @@ const Account = () => {
                             borderRadius: '5px',
                             fontSize: '0.75rem',
                             width: '180px',
-                            position: 'relative',
+                            position: 'relative'
                         }}
-                        onClick={() => window.location.href = '/dashboard'} // chnange route to change password make a compnent like login for that
+                        onClick={() => window.location.href = '/PasswordChanger'} // change route to change password make a component like login for that
                         > Change Password </button>
                     </div>
                 </section>
