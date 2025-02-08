@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from './components/Footer';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Import necessary components from react-router-dom
 
 import Home from './pages/Home'; // Import the Home page component
@@ -11,6 +12,11 @@ import Account from './pages/Account'; // Import the Account page component
 const App = () => {
   return (
     <Router> {/* Use BrowserRouter for routing */}
+    <div style={{
+        display : "flex",
+        flexDirection: "column",
+        minHeight: "100vh"}}>
+      <main style = {{ flex: 1 }}>
       <Routes> {/* Use Routes to define the different routes */}
         <Route path="/" element={<Home />} /> {/* Route for the home page ("/") */}
 
@@ -24,6 +30,9 @@ const App = () => {
         {/* This will display a 404 message if the user tries to access a page that doesn't exist */}
         <Route path="*" element={<h1 style={{ color: '#ffffff' }}>404 Not Found</h1>} /> 
       </Routes>
+          </main>
+          <Footer/>
+          </div>
     </Router>
   );
 }
