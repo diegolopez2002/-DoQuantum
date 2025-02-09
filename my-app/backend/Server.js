@@ -19,7 +19,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET || 'your-session-secret', // Secret key for session management, get from .env
     resave: false, // Don't save session if unmodified
-    saveUninitialized: false, // Don't create a session until something is stored
+    saveUninitialized: false, // Don't create a session until something is stored 
   })
 );
 

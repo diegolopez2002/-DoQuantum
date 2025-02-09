@@ -384,7 +384,6 @@ const Home = () => {
             maxWidth: '800px',
             margin: '15rem auto 13rem auto',
             lineHeight: '1.6',
-            //color: '#a5b4fc',
             color: '#DC66FF',
           }}>
             A UMD researcher-run non-profit bridging the gap between quantum computing theory and practice. 

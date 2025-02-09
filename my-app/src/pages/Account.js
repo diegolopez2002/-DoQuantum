@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../components/Header';
 import { useNavigate } from "react-router-dom";
 import Footer from '../components/Footer';
+import Button from '../components/Button';
 
 const Account = () => {
     const navigate = useNavigate();
@@ -161,19 +162,16 @@ const Account = () => {
                     <h3> Email: </h3>
                     <div style={{ display: 'flex', alignItems: 'center' }}>
                         <h3 style={{ marginRight: '1rem' }}> Password: </h3>
-                        <button style={{ 
-                            backgroundColor: '#DC66FF',
-                            color: 'white',
-                            border: 'none',
-                            padding: '0.5rem 1rem',
-                            cursor: 'pointer',
-                            borderRadius: '5px',
-                            fontSize: '0.75rem',
-                            width: '180px',
-                            position: 'relative'
-                        }}
-                        onClick={() => window.location.href = '/PasswordChanger'} // change route to change password make a component like login for that
-                        > Change Password </button>
+                        <Button
+                            label="Change Password"
+                            onClick={() => window.location.href = '/PasswordChanger'}
+                            style={{
+                                padding: '0.5rem 1rem',
+                                fontSize: '1rem',
+                                cursor: 'pointer',
+                                position: 'relative'
+                            }}
+                        />
                     </div>
                 </section>
                 

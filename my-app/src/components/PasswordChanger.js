@@ -35,15 +35,7 @@ const PasswordChanger = () => {
     };
   
     const handleClose = () => {
-      navigate('/'); 
-    };
-  
-    const handleRegister = () => {
-      navigate('/register'); 
-    };
-  
-    const handleGoogleLogin = () => {
-      window.location.href = 'https://do-quantum-web-app.vercel.app/auth/google/';
+      navigate('/account'); 
     };
   
     return (
@@ -70,7 +62,7 @@ const PasswordChanger = () => {
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
           }}
         >
-          <h2 style={{ color: '#ffffff' }}>Login to Account</h2>
+          <h2 style={{ color: '#ffffff' }}>Change your Password</h2>
   
           {error && <p style={{ color: '#ff6b6b' }}>{error}</p>}
   
@@ -86,7 +78,7 @@ const PasswordChanger = () => {
                 textAlign: 'left',
               }}
             >
-              Username
+              New Password
             </label>
             <input
               type="text"
@@ -124,7 +116,7 @@ const PasswordChanger = () => {
                 textAlign: 'left',
               }}
             >
-              Passphrase
+              Confirm New Password
             </label>
             <input
               type="password"
@@ -150,25 +142,9 @@ const PasswordChanger = () => {
             />
           </div>
   
-          <Button label="Login" type="submit" style={{ width: '100%' }} />
+          <Button label="Confirm" type="submit" style={{ width: '100%' }} />
           <Button label="Close" type="button" onClick={handleClose} style={{ width: '100%' }} />
           
-          <Button
-            label="Login with Google"
-            type="button"
-            onClick={handleGoogleLogin}
-            style={{ width: '100%', marginTop: '1rem' }}
-          />
-  
-          <p style={{ marginTop: '1rem', color: '#a5b4fc' }}>
-            Don't have an account?{' '}
-            <span
-              style={{ textDecoration: 'underline', cursor: 'pointer' }}
-              onClick={handleRegister}
-            >
-              Register here
-            </span>
-          </p>
         </form>
       </div>
     );

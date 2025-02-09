@@ -17,7 +17,7 @@ const App = () => {
 
         <Route path="/login" element={<Login />} /> {/* Route for the login page ("/login") */}
         <Route path="/register" element={<Register />} /> {/* Route for the register page ("/register") */}
-        <Route path="/password" element={<PasswordChanger />} /> {/* Route for the password page ("/password") */}
+        <Route path="/passwordchanger" element={<PasswordChanger />} /> 
 
         <Route path="/Dashboard" element={<Dashboard />} /> {/* Route for the dashboard page ("/Dashboard") */}
         <Route path="/account" element={<Account />} /> {/* Route for the account page ("/account") */}

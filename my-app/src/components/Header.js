@@ -16,15 +16,15 @@ const Header = ({
         left: 0,
         width: '100%',
         height: '5rem',
-        backgroundColor: 'rgba(16, 15, 28, 0.9)', // Semi-transparent background
+        backgroundColor: 'rgba(16, 15, 28, 0.9)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        zIndex: 99, // Ensure it's above other elements
-        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', // Optional shadow for separation
+        zIndex: 99,
+        boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
         padding: '0 1rem',
         boxSizing: 'border-box',
-        paddingBlockEnd : '0.5rem',
+        paddingBlockEnd: '0.5rem',
       }}
     >
       {/* Logo / Home Link */}
@@ -57,6 +57,7 @@ const Header = ({
         {isLoggedIn ? (
           // If user is logged in
           <>
+            
             <Button
               label="Logout"
               onClick={onLogoutClick}
@@ -65,32 +66,43 @@ const Header = ({
                 fontSize: '1rem',
               }}
             />
-
-             { /* Account Button */}
-             {/* <button
-                onClick={() => (window.location.href = '/account')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                <img
-                  src="icons8-contact-info-48.png"
-                  alt="Account Icon"
-                  backgroundColor="#DC66FF"
-                  style={{
-                    height: '2rem', // Adjust size as needed
-                    width: '2rem',
-                  }}
-                />
-              </button>  */}
           </>
-
-
         ) : (
           // If user is NOT logged in, show Login & Register
           <>
+          {/* Account Button */}
+          <button
+              onClick={() => (window.location.href = '/account')}
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                paddingTop: '0.5rem',
+              }}
+            >
+              <img
+                src="icons8-admin-settings-male-50.png"
+                alt="Account Icon"
+                style={{
+                  height: '2rem',
+                  width: '2rem',
+                  backgroundColor: '#DC66FF',
+                  borderRadius: '50%',
+                  padding: '0.5rem',
+                }}
+              />
+            </button>
+
+
+            <Button
+              label="Dashboard"
+              onClick={onDashboardClick}
+              style={{
+                padding: '0.5rem 1rem',
+                fontSize: '1rem',
+              }}
+            />
+
             <Button
               label="Login"
               onClick={onLoginClick}
@@ -107,45 +119,12 @@ const Header = ({
                 fontSize: '1rem',
               }}
             />
-            <Button
-              label="Dashboard"
-              onClick={onDashboardClick}
-              style={{
-                padding: '0.5rem 1rem',
-                fontSize: '1rem',
-              }}
-            />
-            {/* Image as a Button */}
-            <button
-                onClick={() => (window.location.href = '/account')}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  paddingTop: '0.5rem',
-                }}
-              >
-                <img
-                  src="icons8-admin-settings-male-50.png"
-                  alt="Account Icon"
-                  backgroundColor="#DC66FF"
-                  color='white'
-                  style={{
-                    height: '2rem', // Adjust size as needed
-                    width: '2rem',
-                    backgroundColor: '#DC66FF',
-                    borderRadius: '50%',
-                    padding: '0.5rem 0.5rem',
-                    fontSize: '1rem',
-
-                  }}
-                />
-              </button>
-
           </>
+
+
+
         )}
       </div>
-
     </header>
   );
 };
