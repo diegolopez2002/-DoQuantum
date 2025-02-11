@@ -6,11 +6,16 @@ const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track the form submission state
   const navigate = useNavigate(); 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
+
+    if (isSubmitting) return; // Prevent multiple submissions
+
+    setIsSubmitting(true); // Set submitting state to true
 
     try {
       const response = await fetch('http://localhost:5000/login', {
@@ -24,6 +29,7 @@ const Login = ({ onLogin }) => {
         if (data.token) {
           localStorage.setItem('authToken', data.token);
         }
+        onLogin && onLogin(true); // Update the parent component login state
         navigate('/dashboard'); 
       } else {
         setError(data.message || 'Login failed');
@@ -31,6 +37,8 @@ const Login = ({ onLogin }) => {
     } catch (err) {
       console.error('Login error:', err);
       setError('Something went wrong. Please try again later.');
+    } finally {
+      setIsSubmitting(false); // Reset submitting state
     }
   };
 
@@ -93,13 +101,10 @@ const Login = ({ onLogin }) => {
             value={username}
             required
             onKeyDown={(e) => {
-              // Prevent the user from pressing the spacebar
-              if (e.key === ' ') e.preventDefault();
+              if (e.key === ' ') e.preventDefault(); // Prevent spacebar input
             }}
             onChange={(e) => {
-              // Remove any spaces (in case of copy/paste)
-              const noSpaces = e.target.value.replace(/\s+/g, '');
-              setUsername(noSpaces);
+              setUsername(e.target.value.replace(/\s+/g, '')); // Remove spaces
             }}
             style={{
               fontSize: '1rem',
@@ -131,13 +136,10 @@ const Login = ({ onLogin }) => {
             value={password}
             required
             onKeyDown={(e) => {
-              // Prevent the user from pressing the spacebar
-              if (e.key === ' ') e.preventDefault();
+              if (e.key === ' ') e.preventDefault(); // Prevent spacebar input
             }}
             onChange={(e) => {
-              // Remove any spaces (in case of copy/paste)
-              const noSpaces = e.target.value.replace(/\s+/g, '');
-              setPassword(noSpaces);
+              setPassword(e.target.value.replace(/\s+/g, '')); // Remove spaces
             }}
             style={{
               fontSize: '1rem',
@@ -150,7 +152,12 @@ const Login = ({ onLogin }) => {
           />
         </div>
 
-        <Button label="Login" type="submit" style={{ width: '100%' }} />
+        <Button
+          label={isSubmitting ? 'Logging in...' : 'Login'}
+          type="submit"
+          style={{ width: '100%' }}
+          disabled={isSubmitting}
+        />
         <Button label="Close" type="button" onClick={handleClose} style={{ width: '100%' }} />
         
         <Button

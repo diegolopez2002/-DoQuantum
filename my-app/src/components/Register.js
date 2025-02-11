@@ -5,13 +5,33 @@ import Button from './Button'; // Assuming you have a custom Button component
 const Register = ({ onRegister }) => {
   const [username, setUsername] = useState(''); // State for username input
   const [password, setPassword] = useState(''); // State for password input
-  const [email, setEmail] = useState('');   // State for email input
-  const [error, setError] = useState('');   // State for error messages
-  const navigate = useNavigate();          // Hook for navigation
+  const [email, setEmail] = useState(''); // State for email input
+  const [error, setError] = useState(''); // State for error messages
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to manage form submission state
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Validate input before sending data to the server
+  const validateInputs = () => {
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError("Please enter a valid email.");
+      return false;
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return false;
+    }
+
+    return true;
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent form from full page reload
     setError(''); // Clear any previous error messages
+
+    if (!validateInputs()) return; // If inputs are invalid, prevent submission
+
+    setIsSubmitting(true); // Set submitting state to true
 
     try {
       const response = await fetch('http://localhost:5000/register', { // Send registration data to server
@@ -32,6 +52,8 @@ const Register = ({ onRegister }) => {
     } catch (err) {
       console.error('Registration error:', err); // Log any network or other errors
       setError('Something went wrong. Please try again later.'); // Display a generic error message to the user
+    } finally {
+      setIsSubmitting(false); // Reset submitting state
     }
   };
 
@@ -40,7 +62,6 @@ const Register = ({ onRegister }) => {
   };
 
   return (
-    // Main container for the registration form
     <div style={{
       display: 'flex',
       flexDirection: 'column',
@@ -69,14 +90,14 @@ const Register = ({ onRegister }) => {
 
         {/* Username input field */}
         <div style={{ marginBottom: '1rem' }}>
-          <label style={{  // Styling for labels
+          <label style={{
             color: '#ffffff',
             display: 'flex',
-            flexDirection: 'column', // Place label above input
-            alignItems: 'flex-start', // Align label to the left
+            flexDirection: 'column',
+            alignItems: 'flex-start',
             width: '90%',
             margin: '0 auto',
-            textAlign: 'left', 
+            textAlign: 'left',
           }}>
             Username
           </label>
@@ -86,9 +107,9 @@ const Register = ({ onRegister }) => {
             required
             onKeyDown={(e) => { if (e.key === ' ') e.preventDefault(); }} // Prevent spaces
             onChange={(e) => { setUsername(e.target.value.replace(/\s+/g, '')); }} // Remove spaces on change
-            style={{ // Styling for input fields
+            style={{
               fontSize: '1rem',
-              width: 'calc(90% - 1rem - 2px)', // Adjust width for padding and border
+              width: 'calc(90% - 1rem - 2px)',
               padding: '0.5rem',
               marginTop: '0.5rem',
               borderRadius: '5px',
@@ -99,14 +120,14 @@ const Register = ({ onRegister }) => {
 
         {/* Email input field */}
         <div style={{ marginBottom: '1rem' }}>
-          <label style={{ // Styling for labels (repeated for consistency)
+          <label style={{
             color: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
             width: '90%',
             margin: '0 auto',
-            textAlign: 'left', 
+            textAlign: 'left',
           }}>
             Email
           </label>
@@ -116,7 +137,7 @@ const Register = ({ onRegister }) => {
             required
             onKeyDown={(e) => { if (e.key === ' ') e.preventDefault(); }} // Prevent spaces
             onChange={(e) => { setEmail(e.target.value.replace(/\s+/g, '')); }} // Remove spaces on change
-            style={{ // Styling for input fields (repeated for consistency)
+            style={{
               fontSize: '1rem',
               width: 'calc(90% - 1rem - 2px)',
               padding: '0.5rem',
@@ -129,14 +150,14 @@ const Register = ({ onRegister }) => {
 
         {/* Password input field */}
         <div style={{ marginBottom: '1.5rem' }}>
-          <label style={{ // Styling for labels (repeated for consistency)
+          <label style={{
             color: '#ffffff',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
             width: '90%',
             margin: '0 auto',
-            textAlign: 'left', 
+            textAlign: 'left',
           }}>
             Password
           </label>
@@ -146,7 +167,7 @@ const Register = ({ onRegister }) => {
             required
             onKeyDown={(e) => { if (e.key === ' ') e.preventDefault(); }} // Prevent spaces
             onChange={(e) => { setPassword(e.target.value.replace(/\s+/g, '')); }} // Remove spaces on change
-            style={{ // Styling for input fields (repeated for consistency)
+            style={{
               fontSize: '1rem',
               width: 'calc(90% - 1rem - 2px)',
               padding: '0.5rem',
@@ -158,9 +179,10 @@ const Register = ({ onRegister }) => {
         </div>
 
         {/* Register button */}
-        <Button label="Register" type="submit" style={{ width: '100%' }} />
-        {/* Close button */}
-        <Button label="Close" onClick={handleClose} style={{ width: '100%' }} />
+        <Button label="Register" type="submit" style={{ width: '100%' }} disabled={isSubmitting} />
+
+        {/* Cancel button */}
+        <Button label="Cancel" onClick={handleClose} style={{ width: '100%' }} />
       </form>
     </div>
   );

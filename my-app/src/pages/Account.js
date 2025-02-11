@@ -68,7 +68,7 @@ const Account = () => {
              }}>
                 {/* Dashboard Title */}
                 <h1 style={{
-                    fontSize: '2.5rem',
+                    fontSize: '3.5rem',
                     fontWeight: 'bold',
                     color: '#DC66FF',
                     textShadow: '2px 2px 6px rgba(220, 102, 255, 0.5)',
@@ -112,8 +112,9 @@ const Account = () => {
                                 padding: '0.5rem 1rem',
                                 cursor: 'pointer',
                                 borderRadius: '5px',
-                                fontSize: '0.75rem',
-                                width: '180px',
+                                fontSize: '1rem',
+                                width: '150px',
+                                height: '40px',
                             }}
                         >
                             {resumeUploaded ? "Change Resume" : "Choose File"}
